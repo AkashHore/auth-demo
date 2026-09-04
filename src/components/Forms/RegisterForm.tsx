@@ -1,33 +1,34 @@
 "use client";
 
-import { loginSchema, LoginType } from "@/lib/zodSchema";
+import { registerSchema, RegisterType } from "@/lib/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderIcon, LogInIcon } from "lucide-react";
+import { LoaderIcon, PenIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "../shadcnui/button";
-import { Checkbox } from "../shadcnui/checkbox";
 import { Field, FieldError, FieldLabel } from "../shadcnui/field";
 import { Input } from "../shadcnui/input";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const {
     handleSubmit,
     control,
     reset,
     formState: { isSubmitting },
   } = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(registerSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
-      rememberMe: true,
+      confirmPassword: "",
     },
     mode: "all",
   });
-  const loginFormHandler = async (lfData: LoginType) => {
+
+  const registerFormHandler = async (rfData: RegisterType) => {
     await new Promise((r) => setTimeout(r, 1000));
 
-    console.log(lfData);
+    console.log(rfData);
 
     reset();
 
@@ -46,9 +47,29 @@ const LoginForm = () => {
 
   return (
     <form
-      onSubmit={handleSubmit(loginFormHandler)}
+      onSubmit={handleSubmit(registerFormHandler)}
       className="grid place-items-center space-y-4"
       noValidate>
+      <Controller
+        name="name"
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel>Name</FieldLabel>
+
+            <Input
+              {...field}
+              id={field.name}
+              type="text"
+              aria-invalid={fieldState.invalid}
+              placeholder="Your Name"
+              autoComplete="on"
+            />
+
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
       <Controller
         name="email"
         control={control}
@@ -81,7 +102,7 @@ const LoginForm = () => {
               id={field.name}
               type="password"
               aria-invalid={fieldState.invalid}
-              placeholder="Enter Password"
+              placeholder="Create a Password"
               autoComplete="on"
             />
 
@@ -91,17 +112,19 @@ const LoginForm = () => {
       />
 
       <Controller
-        name="rememberMe"
+        name="confirmPassword"
         control={control}
         render={({ field, fieldState }) => (
-          <Field
-            orientation={"horizontal"}
-            data-invalid={fieldState.invalid}>
-            <Checkbox
-              checked={field.value}
-              onCheckedChange={field.onChange}
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel>Confirm Password</FieldLabel>
+            <Input
+              {...field}
+              id={field.name}
+              type="password"
+              aria-invalid={fieldState.invalid}
+              placeholder="Confirm Your Password"
+              autoComplete="on"
             />
-            <FieldLabel>Remember Me</FieldLabel>
 
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
@@ -118,7 +141,7 @@ const LoginForm = () => {
             <LoaderIcon className="animate-spin" /> Waiting ...
           </>
         : <>
-            <LogInIcon /> LogIn
+            <PenIcon /> Register
           </>
         }
       </Button>
@@ -126,4 +149,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

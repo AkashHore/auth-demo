@@ -6,7 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/shadcnui/card";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Register - AuthDemo",
+  description: "Register Page of AuthDemo",
+};
 
 const page = () => {
   return (
@@ -22,7 +28,7 @@ const page = () => {
           <span> Already have an account ?</span>
           <Link
             className="text-blue-500"
-            href={"/logIn"}>
+            href={"/login"}>
             LogIn
           </Link>
         </CardFooter>

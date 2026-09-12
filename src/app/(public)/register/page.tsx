@@ -28,7 +28,7 @@ const page = () => {
           <span> Already have an account ?</span>
           <Link
             className="text-blue-500"
-            href={"/login"}>
+            href={"/signin"}>
             LogIn
           </Link>
         </CardFooter>

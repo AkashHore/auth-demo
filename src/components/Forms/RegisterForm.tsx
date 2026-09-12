@@ -52,7 +52,7 @@ const RegisterForm = () => {
 
       reset();
 
-      replace("/login");
+      replace("/signin");
     }
   };
 

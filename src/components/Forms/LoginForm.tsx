@@ -42,7 +42,7 @@ const LoginForm = () => {
     } else {
       toast.add({
         type: "success",
-        title: "Registered Successfully",
+        title: "Logged in Successfully",
       });
 
       reset();

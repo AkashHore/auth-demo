@@ -25,7 +25,7 @@ const LogOutButton = () => {
         title: "LogOut successfully",
       });
 
-      replace("/login");
+      replace("/signin");
     }
 
     setLoading(false);
@@ -34,6 +34,7 @@ const LogOutButton = () => {
   return (
     <Button
       type="button"
+      size={"lg"}
       variant={"destructive"}
       disabled={loading}
       onClick={logoutbtn}>
